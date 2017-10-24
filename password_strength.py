@@ -47,10 +47,10 @@ def get_password_strength(password, dirpath, min_strength=1, max_strength=10):
 if __name__ == '__main__':
     while True:
         password = input('Enter password you wanna test: ')
-        if len(password) == 0:
-            print('Password should contain at least 1 character')
-        else:
+        if len(password):
             break
+        else:
+            print('Password should contain at least 1 character')
     try:
         dirpath = sys.argv[1]
     except IndexError:
