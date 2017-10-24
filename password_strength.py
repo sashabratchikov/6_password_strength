@@ -18,7 +18,7 @@ def test_against_listings(password, dirpath):
     return False
 
 
-def calculate_strength(password, max_strength):
+def calculate_strength(password, min_strength, max_strength):
     coeffitient = 1
     if password.isdecimal():
         coeffitient = 0.2
@@ -31,13 +31,17 @@ def calculate_strength(password, max_strength):
     elif any(char in set(string.punctuation) for char in password):
         coeffitient = 2
     strength = int(len(password) / 2 * coeffitient)
-    return max_strength if strength > max_strength else strength
+    if strength < min_strength:
+        strength = min_strength
+    elif strength > max_strength:
+        strength = max_strength
+    return strength
 
 
-def get_password_strength(password, dirpath, max_strength=10):
+def get_password_strength(password, dirpath, min_strength=1, max_strength=10):
     if test_against_listings(password, dirpath):
         return 1
-    return calculate_strength(password)
+    return calculate_strength(password, max_strength)
 
 
 if __name__ == '__main__':
@@ -47,5 +51,8 @@ if __name__ == '__main__':
             print('Password should contain at least 1 character')
         else:
             break
-    dirpath = argv[1] or './wordlists'
-    print(get_password_strength(password, dirpath))
+    try:
+        dirpath = sys.argv[1]
+    except IndexError:
+        dirpath = './wordlists'
+    print('Password strength:', get_password_strength(password, dirpath))
