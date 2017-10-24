@@ -14,7 +14,7 @@ https://github.com/danielmiessler/SecLists/tree/master/Passwords
 `password_strength.py` contains several functions:
 `load_data(filepath)` – to load text files content  
 `test_against_listings(password, dirpath)` – tests if some of the listings in `dirpath` folder contains given `password`  
-`calculate_strength(password, min_strength, max_strength)` – calculates password strength from `min_strength` to `max_strength`. It takes into consideration password length and symbols password contains: e.g long passwords with different cased letters, digits and special symbols are much stronger than short numeric passwords.  
+`calculate_strength(password)` – calculates password strength. It takes into consideration password length and symbols password contains: e.g long passwords with different cased letters, digits and special symbols are much stronger than short numeric passwords.  
 `get_password_strength(password, dirpath, min_strength=1, max_strength=10)` – accumulator function which returns password strength based on the result of `test_against_listings` and `calculate_strength`
 
 `wordlists` folder contains security listings you want to test your password against. You can put more listings there or provide a path to directory with listings as a command line argument (see Usage section).
